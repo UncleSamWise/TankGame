@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TankGame</string>
+    <string name="start">Start</string>
+    <string name="high_score_000">High Score: 000</string>
+</resources>
