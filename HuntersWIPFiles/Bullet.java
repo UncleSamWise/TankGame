@@ -1,28 +1,30 @@
-package Files;
+package test;
 //Bullet can be used for both enemy shots and player shots
 public class Bullet extends Enemy{
 
-    private int movespeed; // Tiles per tick
+    private int speed; // Tiles per tick
     private int damage; // Healthpoints damage
 
-    public Bullet(Enemy[][] grid, int col, int row, int facing, int movespeed, int damage){
-        this.grid = grid;
+    public Bullet(TankMap map, int col, int row, int facing, int damage, int speed){
+        this.map = map;
         this.col = col;
         this.row = row;
         this.facing = facing;
-        this.movespeed = movespeed;
+        this.speed = speed;
         this.damage = damage;
         this.health = 1;
+        tookTurn = true;
         icon = 'B';
     }
 
     public void doTurn(){
         doMove();
+        tookTurn = true;
     }
 
     public void doMove(){
-        for(int i = 0; i < movespeed; i++){
-            if(!Movement.move(this, grid, facing, col, row)){
+        for(int i = 0; i < speed; i++){
+            if(!map.move(this)){
                 doShoot();
             }
         }
@@ -30,23 +32,23 @@ public class Bullet extends Enemy{
 
     public void doShoot(){
         if(facing == 0){
-            if(row > 0){
-                grid[col][row-1].doHit(damage);
+            if(col > 0){
+                map.getAtLoc(col-1, row).doHit(damage);
             }
         }
         if(facing == 1){
-            if(col < grid.length-1){
-                grid[col+1][row].doHit(damage);
+            if(row < map.rows-1 ){
+                map.getAtLoc(col, row+1).doHit(damage);
             }
         }
         if(facing == 2){
-            if(row < grid[0].length){
-                grid[col][row+1].doHit(damage);
+            if(col < map.columns-1){
+                map.getAtLoc(col+1, row).doHit(damage);
             }
         }
         if(facing == 3){
-            if(col > 0){
-                grid[col-1][row].doHit(damage);
+            if(row > 0){
+                map.getAtLoc(col, row-1).doHit(damage);
             }
         }
         doDie();

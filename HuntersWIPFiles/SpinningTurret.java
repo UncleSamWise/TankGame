@@ -1,15 +1,16 @@
-package Files;
-public class SpinningTurret  extends Enemy {
+package test;
+public class SpinningTurret extends Enemy {
 
     private boolean tickerFire = true;
 
     //Constructor
-    public SpinningTurret(Enemy[][] grid, int col, int row, int facing) {
-        this.grid = grid;
+    public SpinningTurret(TankMap map, int col, int row, int facing) {
+        this.map = map;
         this.col = col;
         this.row = row;
         this.facing = facing;
         this.health = 1;
+        tookTurn = true;
         icon = 'T';
     }
 
@@ -22,6 +23,7 @@ public class SpinningTurret  extends Enemy {
             doMove();
             tickerFire = true;
         }
+        tookTurn = true;
     }
 
     //Rotate clockwise
@@ -33,7 +35,7 @@ public class SpinningTurret  extends Enemy {
 
     //Fire
     public void doShoot() {
-        if (!Movement.shoot(grid, col, row, facing, 1, 1)) {
+        if (!map.shoot(this, 1, 1)) {
             doMove();
         }
     }
