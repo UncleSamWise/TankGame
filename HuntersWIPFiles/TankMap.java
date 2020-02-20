@@ -9,6 +9,16 @@ public class TankMap {
         columns = col;
         rows = row;
         grid = new Enemy[col][row];
+        //populate the grid with walls
+        /*
+        for(int i = 0; i < maze.length; i++){
+            for(int j = 0; j < maze[0].length; j++){
+                if(maze[i][j] != 0){
+                    this.addEnemy(new Wall(this, i, j, 0));
+                }
+            }
+        }
+        */
     }
 
     public Enemy getAtLoc(int col, int row){
@@ -28,6 +38,13 @@ public class TankMap {
             for(Enemy current : column){
                 if(current != null){
                     current.tookTurn = false;
+                }
+            }
+        }
+        for(Enemy[] column : grid){
+            for(Enemy current : column){
+                if(current != null && !current.tookTurn && current.isBullet){
+                    current.doTurn();
                 }
             }
         }

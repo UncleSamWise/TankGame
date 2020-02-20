@@ -1,10 +1,10 @@
 package test;
-public class SpinningTurret extends Enemy {
+public class Turret extends Enemy {
 
     private boolean tickerFire = true;
 
     //Constructor
-    public SpinningTurret(TankMap map, int col, int row, int facing) {
+    public Turret(TankMap map, int col, int row, int facing) {
         this.map = map;
         this.col = col;
         this.row = row;
@@ -15,30 +15,20 @@ public class SpinningTurret extends Enemy {
         isBullet = false;
     }
 
-    //Shoot 1 turn, rotate the next, ad infinitium
     public void doTurn(){
         if(tickerFire){
-            tickerFire = false;
             doShoot();
+            tickerFire = false;
         } else{
-            doMove();
             tickerFire = true;
         }
         tookTurn = true;
     }
 
-    //Rotate clockwise
     public void doMove(){
-        if(facing < 3){
-            facing++;
-        } else facing = 0;
     }
 
-    //Fire
     public void doShoot() {
-        if (!map.shoot(this, 1, 1)) {
-            doMove();
-            tickerFire = true;
-        }
+        map.shoot(this, 1, 1);
     }
 }

@@ -1,0 +1,5 @@
+enemy that moves towards player
+bullet that moves towards player (homing)
+'sniper' that only fires if player is aligned for long enough, very fast bullet
+aoe bullets?
+groups that move together (might be difficult)

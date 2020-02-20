@@ -1,7 +1,5 @@
 package test;
 
-import java.util.ArrayList;
-
 //Base class for enemies, other enemies should extend this
 public class Enemy {
 
@@ -11,7 +9,8 @@ public class Enemy {
     int health; // <= 0 = dead, else alive
     int facing; //0 = north, 1 = east, 2 = south, 3 = west
     boolean tookTurn;
-    char icon; //For printing to console during testing
+    boolean isBullet;
+    char icon; //For printing to console during testing; swap this out with whatever we use to render (sprites?)
 
     //Should run every tick
     public void doTurn(){}

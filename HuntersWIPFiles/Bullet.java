@@ -13,6 +13,7 @@ public class Bullet extends Enemy{
         this.speed = speed;
         this.damage = damage;
         this.health = 1;
+        isBullet = true;
         tookTurn = true;
         icon = 'B';
     }
