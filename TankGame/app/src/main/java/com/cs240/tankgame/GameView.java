@@ -105,30 +105,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //return super.onTouchEvent(e);
     }
 
-    int[][] maze = {
-            {0, 0, 0, 0, 0},
-            {0, 1, 2, 1, 0},
-            {0, 0, 0, 1, 0},
-            {1, 1, 2, 1, 0},
-            {0, 0, 0, 0, 0}
-    };
-
     Bitmap[] bitmaps = {
             BitmapFactory.decodeResource(getResources(), R.drawable.metal),
             BitmapFactory.decodeResource(getResources(), R.drawable.best),
             BitmapFactory.decodeResource(getResources(), R.drawable.metal)
     };
 
-    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
-
     //calls images and starts the main thread
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        int mazeWidth = 10;
+        int mazeHeight = 10;
+
+        PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
+        n.initialise();
+        int[][] maze = n.returnGrid();
+        mazeFinal = new Maze(bitmaps, maze, mazeWidth, mazeHeight);
         //use this to access a (.png) from main/res/drawable
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.best));
-        mazeFinal = new Maze(bitmaps, maze, 5, 5, screenWidth, screenHeight);
-
 
         thread.setRunning(true);
         thread.start();
