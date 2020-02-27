@@ -97,6 +97,37 @@ public class PerlinNoise {
         }
     }
 
+    //convert float grid to new int[][] array
+    //0 = floor, 1 = wall, 2 = wall variant
+    public int[][] returnGrid(){
+        int w = grid.length;
+        int h = grid[0].length;
+        int[][] newGrid = new int[w][h];
+
+        for(int i = 0;i < grid.length;i++) {
+            for(int j = 0;j < grid[0].length;j++) {
+
+                /*if((i >= (grid.length / 2) - 1 && i <= (grid.length / 2) + 1) || (j >= (grid.length / 2) - 1 && j <= (grid.length / 2) + 1)) {
+                  System.out.print("UU");
+                }else */
+//                if(grid[i][j] > 0.2 && grid[i][j] < 0.5) {
+//                    System.out.print("++");
+//                }else
+                if(grid[i][j] >= 0.5){
+                    newGrid[i][j] = 1;
+                } else /*if(grid[i][j] <= 0.2 && grid[i][j] > -1.3)*/{
+                    newGrid[i][j] = 0;
+                }
+//                else{
+//                    System.out.print("WW");
+//                }
+            }
+            System.out.println();
+        }
+
+        return newGrid;
+    }
+
 
     /**
      * Convert to a Boolean array
@@ -116,9 +147,9 @@ public class PerlinNoise {
 
 
     /** For testing */
-    public static void main(String[] args) {
-        PerlinNoise n = new PerlinNoise(null, 1.0f, 20, 20);
-        n.initialise();
-        n.print();
-    }
+//    public static void main(String[] args) {
+//        PerlinNoise n = new PerlinNoise(null, 1.0f, 20, 20);
+//        n.initialise();
+//        int[][] arr = n.returnGrid();
+//    }
 }
