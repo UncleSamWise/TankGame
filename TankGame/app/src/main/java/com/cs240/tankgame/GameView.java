@@ -13,6 +13,8 @@ import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 import android.app.Activity;
 
+import androidx.core.view.GestureDetectorCompat;
+
 import java.util.Calendar;
 
 /*
@@ -21,21 +23,27 @@ import java.util.Calendar;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread thread;
+    private GestureDetectorCompat gestureDetectorCompat = null;
+    private DetectSwipeGestureListener gestureListener;
+
     private CharacterSprite characterSprite;
     Maze mazeFinal;
     //up = 2. down = 1. right = 3. left = 4. tap = 0.
     private int direction;
+    private boolean touched;
 
     volatile float x1, y1;
-    private float x2, y2;
+    volatile float x2, y2;
     private long startClickTime;
-    static final int MIN_DISTANCE = 150;
+    static final int MIN_DISTANCE = 300;
     static final int MAX_SWIPE_TIME = 200;
 
     public GameView(Context context) {
         super(context);
 
         thread = new MainThread(getHolder(), this);
+        gestureListener = new DetectSwipeGestureListener();
+        gestureDetectorCompat = new GestureDetectorCompat(getContext(), gestureListener);
         surfaceCreated(getHolder());
         setFocusable(true);
 
@@ -52,57 +60,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         // and other input controls. In this case, you are only
         // interested in events where the touch position changed.
 
-//        float x = e.getX();
-//        float y = e.getY();
-
-        x1 = event.getX();
-        y1 = event.getY();
-
-        switch (event.getAction()) {
-            //case MotionEvent.ACTION_BUTTON_PRESS:
-
-            case MotionEvent.ACTION_DOWN:
-                //startClickTime = Calendar.getInstance().getTimeInMillis();
-//                x2 = event.getX();
-//                y2 = event.getY();
-                float deltaY = event.getX() - y1;
-                float deltaX = event.getY() - x1;
-                if (Math.abs(deltaX) > MIN_DISTANCE /*&& clickDuration < MAX_SWIPE_TIME*/){
-                    //left to right
-                    direction = 3;
-                }else if(deltaX > MIN_DISTANCE /*&& clickDuration < MAX_SWIPE_TIME*/){
-                    //right to left
-                    direction = 4;
-                }else if(deltaY > MIN_DISTANCE){
-                    //down
-                    direction = 1;
-                }else if(Math.abs(deltaY) > MIN_DISTANCE){
-                    //up
-                    direction = 2;
-                }else{
-                    //button press
-                    direction = 0;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                //long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-
-
-                break;
-            case MotionEvent.ACTION_MOVE:
-
-                break;
-//            case MotionEvent.ACTION_CANCEL:
-//                //touched = false;
-//                break;
-//            case MotionEvent.ACTION_OUTSIDE:
-//                //touched = false;
-//                break;
-            default:
-        }
-        //direction = 0;
+        gestureDetectorCompat.onTouchEvent(event);
+        direction = gestureListener.getDirection();
         return true;
-        //return super.onTouchEvent(e);
     }
 
     Bitmap[] bitmaps = {
@@ -114,8 +74,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     //calls images and starts the main thread
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        int mazeWidth = 10;
-        int mazeHeight = 10;
+        int mazeWidth = 27;
+        int mazeHeight = 20;
 
         PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
         n.initialise();
@@ -146,6 +106,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update() {
         characterSprite.update(direction);
+        direction = -1;
     }
 
     @Override
@@ -154,7 +115,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas!=null) {
             //canvas.drawColor(Color.WHITE);
             mazeFinal.drawMaze(canvas, 10, 10);
-            //characterSprite.draw(canvas);
+            characterSprite.draw(canvas);
 
             //draws a red square in the top left of the screen
             //dont
