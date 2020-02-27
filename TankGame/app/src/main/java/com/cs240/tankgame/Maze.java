@@ -1,21 +1,24 @@
 package com.cs240.tankgame;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.content.res.Resources;
+
 
 public class Maze {
     private RectF drawRect = new RectF();
     private Bitmap[] bitmaps;
     private int[][] tileType;
-    private float screenWidth, screenHeight;
+    //private float screenWidth, screenHeight;
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
     
-    public Maze(Bitmap[] bitmaps, int[][] tileType, float xCellCountOnScreen, float yCellCountOnScreen, float screenWidth, float screenHeight){
+    public Maze(Bitmap[] bitmaps, int[][] tileType, float xCellCountOnScreen, float yCellCountOnScreen){
         this.bitmaps = bitmaps;
         this.tileType = tileType;
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        drawRect.set(0, 0, screenWidth / xCellCountOnScreen, screenHeight / yCellCountOnScreen);
+        drawRect.set(0, 0, screenWidth / xCellCountOnScreen, screenHeight / (yCellCountOnScreen));
     }
     
     public int getType(int x, int y){
@@ -58,6 +61,12 @@ public class Maze {
             yCoord += drawRect.height();
         }
     }
+
+//    private Bitmap[] bitmaps = {
+//            BitmapFactory.decodeResource(getResources(), R.drawable.metal),
+//            BitmapFactory.decodeResource(getResources(), R.drawable.best),
+//            BitmapFactory.decodeResource(getResources(), R.drawable.metal)
+//    };
 }
 
 /*
