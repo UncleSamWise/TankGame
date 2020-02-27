@@ -38,17 +38,40 @@ public class CharacterSprite {
     }
 
     //Updates the position of the image on screen
-    public void update() {
+    public void update(int input) {
+//        x = (int)inputX;
+//        y = (int)inputY;
+        if(input == 0) {
+
+        }else if(input == 1) {
+            if ((y > screenWidth - image.getHeight()) || (y < 0)) {
+
+            }else{
+                y += yVelocity;
+            }
+        }else if(input == 2) {
+            //if ((y > screenWidth - image.getHeight()) || (y < 0)) {
+                y -= yVelocity;
+            //}
+        }else if(input == 3) {
+            //if ((x > screenWidth - image.getWidth()) || (x < 0)) {
+                x -= xVelocity;
+            //}
+        }else if(input == 4) {
+            //if ((x > screenWidth - image.getWidth()) || (x < 0)) {
+                x += xVelocity;
+            //}
+        }
 
         //moves the image like a screen saver
-        x += xVelocity;
-        y += yVelocity;
-        if ((x > screenWidth - image.getWidth()) || (x < 0)) {
-            xVelocity = xVelocity*-1;
-        }
-        if ((y > screenHeight - image.getHeight()) || (y < 0)) {
-            yVelocity = yVelocity*-1;
-        }
+//        x += xVelocity;
+//        y += yVelocity;
+//        if ((x > screenWidth - image.getWidth()) || (x < 0)) {
+//            xVelocity = xVelocity*-1;
+//        }
+//        if ((y > screenHeight - image.getHeight()) || (y < 0)) {
+//            yVelocity = yVelocity*-1;
+//        }
 
     }
 
