@@ -120,7 +120,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
         n.initialise();
         int[][] maze = n.returnGrid();
-        mazeFinal = new Maze(bitmaps, maze, mazeWidth, mazeHeight);
+        mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
         //use this to access a (.png) from main/res/drawable
         characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.best));
 
