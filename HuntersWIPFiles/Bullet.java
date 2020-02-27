@@ -9,13 +9,14 @@ public class Bullet extends Enemy{
         this.map = map;
         this.col = col;
         this.row = row;
-        this.facing = facing;
+        this.moveFacing = facing;
+        this.fireFacing = facing;
         this.speed = speed;
         this.damage = damage;
         this.health = 1;
         isBullet = true;
         tookTurn = true;
-        icon = 'B';
+        icon = 'b';
     }
 
     public void doTurn(){
@@ -32,22 +33,22 @@ public class Bullet extends Enemy{
     }
 
     public void doShoot(){
-        if(facing == 0){
+        if(moveFacing == 0){
             if(col > 0){
                 map.getAtLoc(col-1, row).doHit(damage);
             }
         }
-        if(facing == 1){
+        if(moveFacing == 1){
             if(row < map.rows-1 ){
                 map.getAtLoc(col, row+1).doHit(damage);
             }
         }
-        if(facing == 2){
+        if(moveFacing == 2){
             if(col < map.columns-1){
                 map.getAtLoc(col+1, row).doHit(damage);
             }
         }
-        if(facing == 3){
+        if(moveFacing == 3){
             if(row > 0){
                 map.getAtLoc(col, row-1).doHit(damage);
             }

@@ -59,7 +59,7 @@ public class TankMap {
 
     //Moves 1 tile forward, returns true if move is valid, otherwise false
     public boolean move(Enemy enemy){
-        int facing = enemy.facing;
+        int facing = enemy.moveFacing;
         int row = enemy.row;
         int col = enemy.col;
         if(facing == 0){
@@ -95,7 +95,7 @@ public class TankMap {
 
     //Spawn bullet 1 tile in front, returns true if valid, otherwise false
     public boolean shoot(Enemy enemy, int damage, int speed){
-        int facing = enemy.facing;
+        int facing = enemy.fireFacing;
         int row = enemy.row;
         int col = enemy.col;
         if(facing == 0){

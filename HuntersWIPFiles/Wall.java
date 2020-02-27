@@ -7,7 +7,8 @@ public class Wall extends Enemy{
         this.map = map;
         this.col = col;
         this.row = row;
-        this.facing = facing;
+        this.moveFacing = facing;
+        this.fireFacing = facing;
         this.health = 99999;
         icon = 'W';
         tookTurn = true;

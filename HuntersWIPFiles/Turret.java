@@ -8,7 +8,8 @@ public class Turret extends Enemy {
         this.map = map;
         this.col = col;
         this.row = row;
-        this.facing = facing;
+        this.moveFacing = facing;
+        this.fireFacing = facing;
         this.health = 1;
         tookTurn = true;
         icon = 'T';

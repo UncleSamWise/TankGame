@@ -8,7 +8,8 @@ public class SpinningTurret extends Enemy {
         this.map = map;
         this.col = col;
         this.row = row;
-        this.facing = facing;
+        this.moveFacing = facing;
+        this.fireFacing = facing;
         this.health = 1;
         tookTurn = true;
         icon = 'T';
@@ -29,9 +30,9 @@ public class SpinningTurret extends Enemy {
 
     //Rotate clockwise
     public void doMove(){
-        if(facing < 3){
-            facing++;
-        } else facing = 0;
+        if(fireFacing < 3){
+            fireFacing++;
+        } else fireFacing = 0;
     }
 
     //Fire

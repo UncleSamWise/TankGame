@@ -7,7 +7,8 @@ public class Enemy {
     int col; //keep track of coordinates
     int row;
     int health; // <= 0 = dead, else alive
-    int facing; //0 = north, 1 = east, 2 = south, 3 = west
+    int moveFacing; //0 = north, 1 = east, 2 = south, 3 = west
+    int fireFacing;
     boolean tookTurn;
     boolean isBullet;
     char icon; //For printing to console during testing; swap this out with whatever we use to render (sprites?)
