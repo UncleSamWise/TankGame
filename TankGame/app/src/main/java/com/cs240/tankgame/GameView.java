@@ -28,6 +28,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private CharacterSprite characterSprite;
     Maze mazeFinal;
+
+    private int mazeWidth = 17;
+    private int mazeHeight = 10;
+
     //up = 2. down = 1. right = 3. left = 4. tap = 0.
     private int direction;
     private boolean touched;
@@ -66,7 +70,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     Bitmap[] bitmaps = {
-            BitmapFactory.decodeResource(getResources(), R.drawable.metal),
+            BitmapFactory.decodeResource(getResources(), R.drawable.grass1),
             BitmapFactory.decodeResource(getResources(), R.drawable.best),
             BitmapFactory.decodeResource(getResources(), R.drawable.metal)
     };
@@ -74,16 +78,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     //calls images and starts the main thread
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
-        int mazeWidth = 27;
-        int mazeHeight = 20;
 
         PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
         n.initialise();
         int[][] maze = n.returnGrid();
         mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
-        //use this to access a (.png) from main/res/drawable
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.best));
 
+        int cellHeight = (int)mazeFinal.getCellHeight();
+        int cellWidth = (int)mazeFinal.getCellWidth();
+        //use this to access a (.png) from main/res/drawable
+        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.playertank),
+                                              cellWidth, cellHeight);
         thread.setRunning(true);
         thread.start();
 
@@ -114,7 +119,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         if(canvas!=null) {
             //canvas.drawColor(Color.WHITE);
-            mazeFinal.drawMaze(canvas, 10, 10);
+            mazeFinal.drawMaze(canvas, mazeWidth, mazeHeight);
             characterSprite.draw(canvas);
 
             //draws a red square in the top left of the screen
