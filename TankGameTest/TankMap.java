@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import static com.cs240.tankgame.GameView.canvas;
+
 public class TankMap {
     int columns;
     int rows;
@@ -20,7 +22,7 @@ public class TankMap {
     private int cellHeight;
 
 
-    public TankMap(Enemy[][] maze,/* int width, int height,*/ Bitmap[] bmp){
+    public TankMap(Enemy[][] maze, int width, int height, Bitmap[] bmp){
         columns = maze[0].length;
         rows = maze.length;
         grid = maze;
@@ -29,8 +31,8 @@ public class TankMap {
         PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
         n.initialise();
         float[][] generatedGrid = n.returnGrid();
-//        cellWidth = width;
-//        cellHeight = height;
+        cellWidth = width;
+        cellHeight = height;
         //populate the grid with walls
 
         for(int i = 0; i < generatedGrid.length; i++){
@@ -90,7 +92,6 @@ public class TankMap {
                 grid[col-1][row] = enemy;
                 grid[col][row] = null;
                 enemy.col = enemy.col-1;
-                //enemy.drawEnemy();
             } else return false;
         }
         if(facing == 1){
@@ -145,7 +146,7 @@ public class TankMap {
         return true;
     }
 
-    public Enemy[][] render(){
+    public void render(){
 //        System.out.println("____________________________");
         //Enemy[][] temp = new Enemy[grid.length][grid[0].length];
 //        for(int i = 0; i < maze.length; i++){
@@ -155,18 +156,12 @@ public class TankMap {
 //                }
 //            }
 //        }
-//        for(int i = 0; i < maze.length; i++){
-//            for(int ii = 0; ii < maze[0].length; ii++){
-//                if(grid[i][ii].toString().equals("s")){
-//                   maze[i][ii] = 3;
-//                } else if(grid[i][ii].toString().equals("b")){
-//                    maze[i][ii] = 4;
-//                    //canvas.drawBitmap(grid[i][ii].image, screenHeight/grid[i][ii].row, screenWidth/grid[i][ii].col, null);
+//        for(int i = 0; i < grid.length; i++){
+//            for(int ii = 0; ii < grid[0].length; ii++){
+//                if(grid[i][ii] != null && grid[i][ii].image != null){
+//                    canvas.drawBitmap(grid[i][ii].image, screenHeight, screenWidth, null);
 //                }
 //            }
 //        }
-
-//        System.out.println("____________________________");
-        return grid;
     }
 }

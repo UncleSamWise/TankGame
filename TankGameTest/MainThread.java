@@ -56,7 +56,9 @@ public class MainThread extends Thread {
                     //this.gameView.draw(tempCanvas);
                     this.gameView.draw(canvas);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             finally{
                 if(canvas!=null) {

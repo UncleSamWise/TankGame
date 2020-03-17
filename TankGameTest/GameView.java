@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
@@ -90,17 +91,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
 
         Enemy[][] maze = new Enemy[mazeWidth][mazeHeight];
-        //mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
+        mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
 //        PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
 //        n.initialise();
 //        maze = n.returnGrid();
 
+
         int cellHeight = (int)mazeFinal.getCellHeight();
         int cellWidth = (int)mazeFinal.getCellWidth();
 
-        theMap = new TankMap(maze, bitmaps);
-        theMap.addEnemy(new SpinningTurret(theMap, 2, 5, 4, bitmaps[3], cellWidth, cellHeight));
-        theMap.addEnemy(new SpinningTurret(theMap, 2, 6, 4, bitmaps[3], cellWidth, cellHeight));
+        theMap = new TankMap(maze, cellWidth, cellHeight, bitmaps);
+        theMap.addEnemy(new SpinningTurret(theMap, 2, 5, 3, bitmaps[3], cellWidth, cellHeight));
+        theMap.addEnemy(new SpinningTurret(theMap, 2, 7, 3, bitmaps[3], cellWidth, cellHeight));
+        theMap.addEnemy(new Bullet(theMap, 1, 6, 4, 1, 1, bitmaps[4], cellWidth, cellHeight));
 
         //theMap.populate();
 
@@ -108,8 +111,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         //use this to access a (.png) from main/res/drawable
         characterSprite = new CharacterSprite(bitmaps[2], cellWidth, cellHeight);
-        maze = theMap.render();
+        maze = theMap.grid;
         mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
+
 
         //draw();
         thread.setRunning(true);
@@ -146,11 +150,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
         if(canvas!=null) {
-            //canvas.drawColor(Color.WHITE);
+            canvas.drawColor(Color.WHITE);
             mazeFinal.drawMaze(canvas, mazeWidth, mazeHeight);
-            //theMap.render(canvas);
+            theMap.render();
             characterSprite.drawSprite(canvas);
         }
     }
