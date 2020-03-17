@@ -95,14 +95,14 @@ public class TankMap {
             } else return false;
         }
         if(facing == 1){
-            if(row < rows-1 && grid[col][row+1] == null){
+            if(row < columns-1 && grid[col][row+1] == null){
                 grid[col][row+1] = enemy;
                 grid[col][row] = null;
                 enemy.row = enemy.row+1;
             } else return false;
         }
         if(facing == 2){
-            if(col < columns - 1 && grid[col+1][row] == null){
+            if(col < rows - 1 && grid[col+1][row] == null){
                 grid[col+1][row] = enemy;
                 grid[col][row] = null;
                 enemy.col = enemy.col+1;
