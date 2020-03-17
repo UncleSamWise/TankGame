@@ -132,6 +132,25 @@ public class PerlinNoise {
 
     }
 
+    public float[][] returnFinalNoise(){
+        //PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
+        boolean isBadWall;
+//        while(isBadWall) {
+//            initialise();
+//            //grid
+//            for(grid column){
+//                for(grid row){
+//                    if(grid[i][j] >= 0.5) {
+//                        break;
+//                    }else{
+//                        isBadWall = false;
+//                    }
+//                }
+//            }
+//        }
+
+        return grid;
+    }
 
     /**
      * Convert to a Boolean array
