@@ -1,12 +1,15 @@
 package com.cs240.tankgame;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 
 //Bullet can be used for both enemy shots and player shots
 public class Bullet extends Enemy{
 
     private int speed; // Tiles per tick
     private int damage; // Healthpoints damage
+    Matrix matrix = new Matrix();
 
     public Bullet(TankMap map, int col, int row, int facing, int damage, int speed, Bitmap bmp, int width, int height){
         this.map = map;
@@ -20,12 +23,21 @@ public class Bullet extends Enemy{
         isBullet = true;
         tookTurn = true;
         this.icon = 'b';
+        matrix.postRotate(90);
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
+        for(int i = 0; i < facing; i++) {
+            image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+        }
     }
 
     public void doTurn(){
         doMove();
         tookTurn = true;
+    }
+
+    public Bitmap drawEnemy(Canvas canvas){
+        return image;
+        //canvas.drawBitmap(image, screenWidth/row, screenHeight/col, null);
     }
 
     public void doMove(){
