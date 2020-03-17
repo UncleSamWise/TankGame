@@ -26,7 +26,7 @@ public class LineTank extends Enemy {
 
         matrix.postRotate(90);
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
-        for(int i = 0; i < facing + 1; i++) {
+        for(int i = 0; i < facing; i++) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
         }
 //        matrix = new Matrix();
