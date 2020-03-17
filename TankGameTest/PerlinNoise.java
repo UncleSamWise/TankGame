@@ -101,8 +101,9 @@ public class PerlinNoise {
 
     //convert float grid to new int[][] array
     //0 = floor, 1 = wall, 2 = wall variant
-    public Enemy[][] returnGrid(TankMap theMap, Bitmap[] bmp){
-        int w = grid.length;
+    public float[][] returnGrid(){
+        return grid;
+        /*int w = grid.length;
         int h = grid[0].length;
         Enemy[][] newGrid = new Enemy[w][h];
 
@@ -111,13 +112,13 @@ public class PerlinNoise {
 
                 /*if((i >= (grid.length / 2) - 1 && i <= (grid.length / 2) + 1) || (j >= (grid.length / 2) - 1 && j <= (grid.length / 2) + 1)) {
                   System.out.print("UU");
-                }else */
+                }else
 //                if(grid[i][j] > 0.2 && grid[i][j] < 0.5) {
 //                    System.out.print("++");
 //                }else
                 if(grid[i][j] >= 0.5){
                     theMap.addEnemy(new Wall(theMap, i, j, bmp[1]));
-                } else /*if(grid[i][j] <= 0.2 && grid[i][j] > -1.3)*/{
+                } else /*if(grid[i][j] <= 0.2 && grid[i][j] > -1.3){
                     //newGrid[i][j] = 0;
                 }
 //                else{
@@ -126,7 +127,9 @@ public class PerlinNoise {
             }
         }
 
-        return newGrid;
+        return newGrid:
+         */
+
     }
 
 

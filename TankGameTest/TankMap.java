@@ -23,23 +23,23 @@ public class TankMap {
     public TankMap(Enemy[][] maze,/* int width, int height,*/ Bitmap[] bmp){
         columns = maze[0].length;
         rows = maze.length;
-        //grid = maze;
+        grid = maze;
         bulletbmp = bmp[4];
         //this.maze = maze;
         PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
         n.initialise();
-        grid = n.returnGrid(this, bmp);
+        float[][] generatedGrid = n.returnGrid();
 //        cellWidth = width;
 //        cellHeight = height;
         //populate the grid with walls
 
-//        for(int i = 0; i < maze.length; i++){
-//            for(int j = 0; j < maze[0].length; j++){
-//                {if(this.maze[i][j] == 1)
-//                    this.addEnemy(new Wall(this, i, j, bmp[1]));
-//                }
-//            }
-//        }
+        for(int i = 0; i < generatedGrid.length; i++){
+            for(int j = 0; j < generatedGrid[0].length; j++){
+                {if(generatedGrid[i][j] >= 0.5)
+                    this.addEnemy(new Wall(this, i, j, bmp[1]));
+                }
+            }
+        }
 
     }
 
