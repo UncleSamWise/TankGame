@@ -18,6 +18,7 @@ public class SpinningTurret extends Enemy {
         this.moveFacing = facing;
         this.fireFacing = facing;
         this.health = 1;
+        this.icon = 's';
         tookTurn = true;
         isBullet = false;
 

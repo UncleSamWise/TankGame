@@ -1,5 +1,6 @@
 package com.cs240.tankgame;
 
+import android.os.SystemClock;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -12,16 +13,24 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
     private int direction;
 
     // Minimal x and y axis swipe distance.
-    private static int MIN_SWIPE_DISTANCE_X = 100;
-    private static int MIN_SWIPE_DISTANCE_Y = 100;
+    private static int MIN_SWIPE_DISTANCE_X = 50;
+    private static int MIN_SWIPE_DISTANCE_Y = 50;
 
     // Maximal x and y axis swipe distance.
     private static int MAX_SWIPE_DISTANCE_X = 1000;
     private static int MAX_SWIPE_DISTANCE_Y = 1000;
 
+    private long lastClickTime;
+    static final int MAX_SWIPE_TIME = 200;
+
     /* This method is invoked when a swipe gesture happened. */
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
+//        if (SystemClock.elapsedRealtime() - lastClickTime < 9000) {
+//            return true;
+//        }
+//        lastClickTime = SystemClock.elapsedRealtime();
 
         // Get swipe delta value in x axis.
         float deltaX = e1.getX() - e2.getX();
@@ -79,7 +88,6 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
     }
 
     public int getDirection() {
-
         return direction;
     }
 

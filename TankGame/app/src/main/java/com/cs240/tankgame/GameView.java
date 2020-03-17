@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -16,8 +15,6 @@ import android.app.Activity;
 import java.util.Timer;
 import java.util.TimerTask;
 import androidx.core.view.GestureDetectorCompat;
-
-import java.util.Calendar;
 
 /*
  *
@@ -82,6 +79,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     Bitmap[] bitmaps = {
             BitmapFactory.decodeResource(getResources(), R.drawable.grass1),
             BitmapFactory.decodeResource(getResources(), R.drawable.best),
+            BitmapFactory.decodeResource(getResources(), R.drawable.playertank),
+            BitmapFactory.decodeResource(getResources(), R.drawable.enemytank),
+            BitmapFactory.decodeResource(getResources(), R.drawable.bullet),
+            //BitmapFactory.decodeResource(getResources(), R.drawable.best),
             BitmapFactory.decodeResource(getResources(), R.drawable.metal)
     };
 
@@ -89,25 +90,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
 
-        PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
-        n.initialise();
-        int[][] maze = n.returnGrid();
+        Enemy[][] maze = new Enemy[mazeWidth][mazeHeight];
         mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
+//        PerlinNoise n = new PerlinNoise(null, 1.0f, mazeWidth, mazeHeight);
+//        n.initialise();
+//        maze = n.returnGrid();
+
 
         int cellHeight = (int)mazeFinal.getCellHeight();
         int cellWidth = (int)mazeFinal.getCellWidth();
 
-        theMap = new TankMap(mazeWidth, mazeHeight, BitmapFactory.decodeResource(getResources(), R.drawable.bullet),
-                             cellWidth, cellHeight);
-        theMap.addEnemy(new SpinningTurret(theMap, 2, 5, 4,
-                        BitmapFactory.decodeResource(getResources(), R.drawable.enemytank),
-                        cellWidth, cellHeight));
+        theMap = new TankMap(maze, cellWidth, cellHeight, bitmaps);
+        theMap.addEnemy(new SpinningTurret(theMap, 2, 5, 3, bitmaps[3], cellWidth, cellHeight));
+        theMap.addEnemy(new SpinningTurret(theMap, 2, 7, 3, bitmaps[3], cellWidth, cellHeight));
+        theMap.addEnemy(new Bullet(theMap, 1, 6, 4, 1, 1, bitmaps[4], cellWidth, cellHeight));
+
         //theMap.populate();
 
+        //maze = theMap.render();
 
         //use this to access a (.png) from main/res/drawable
-        characterSprite = new CharacterSprite(BitmapFactory.decodeResource(getResources(), R.drawable.playertank),
-                                              cellWidth, cellHeight);
+        characterSprite = new CharacterSprite(bitmaps[2], cellWidth, cellHeight);
+        maze = theMap.grid;
+        mazeFinal = new Maze(bitmaps, maze, mazeHeight, mazeWidth);
+
+
         //draw();
         thread.setRunning(true);
         thread.start();
@@ -143,13 +150,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
         if(canvas!=null) {
-            //canvas.drawColor(Color.WHITE);
+            canvas.drawColor(Color.WHITE);
             mazeFinal.drawMaze(canvas, mazeWidth, mazeHeight);
+            theMap.render();
             characterSprite.drawSprite(canvas);
-            theMap.render(canvas);
-
         }
     }
 

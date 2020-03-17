@@ -1,5 +1,7 @@
 package com.cs240.tankgame;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
@@ -10,11 +12,15 @@ import android.view.SurfaceHolder;
 public class MainThread extends Thread {
     private GameView gameView;
     private SurfaceHolder surfaceHolder;
+    Bitmap tempCanvasBitmap;
+    Canvas tempCanvas;
     private boolean running;
     public static Canvas canvas;
     private int targetFPS = 1;
     private double averageFPS;
 
+    private int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels - 1;
+    private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     public MainThread(SurfaceHolder surfaceHolder, GameView gameView) {
 
@@ -34,22 +40,30 @@ public class MainThread extends Thread {
         int frameCount =0;
         long targetTime = 1000/targetFPS;
 
+//        tempCanvasBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Bitmap.Config.ARGB_8888);
+//        tempCanvas = new Canvas();
+//        tempCanvas.setBitmap(tempCanvasBitmap);
 
         while(running) {
             startTime = System.nanoTime();
             canvas = null;
+            //tempCanvas = null;
 
             try {
                 canvas = this.surfaceHolder.lockCanvas();
                 synchronized (surfaceHolder) {
                     this.gameView.update();
+                    //this.gameView.draw(tempCanvas);
                     this.gameView.draw(canvas);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             finally{
                 if(canvas!=null) {
                     try {
+                        //canvas.drawBitmap(tempCanvasBitmap, 0, 0, null);
                         surfaceHolder.unlockCanvasAndPost(canvas);
                     } catch(Exception e) {
                         e.printStackTrace();

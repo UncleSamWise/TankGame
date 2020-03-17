@@ -4,8 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import androidx.core.view.GestureDetectorCompat;
 
 public class MainActivity extends Activity {
+    private GameView gameView;
+
+    // This is the gesture detector compat instance.
+    //private GestureDetectorCompat gestureDetectorCompat = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

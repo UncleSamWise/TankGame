@@ -16,7 +16,7 @@ import java.nio.ByteBuffer;
  *
  */
 
-public class CharacterSprite {
+public class CharacterSprite /*extends Enemy*/{
 
     private Bitmap image;
 
@@ -31,8 +31,8 @@ public class CharacterSprite {
     private int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     //image speed
-    private int xVelocity = screenWidth / 10;
-    private int yVelocity = screenHeight / 17;
+    private int xVelocity = (screenWidth / 10) ;
+    private int yVelocity = (screenHeight / 17) ;
 
     //constructor. Determines starting position of image
     public CharacterSprite (Bitmap bmp, int width, int height) {
@@ -43,26 +43,21 @@ public class CharacterSprite {
     }
 
     //draws the image on screen
-    public void draw(@org.jetbrains.annotations.NotNull Canvas canvas) {
+    public void drawSprite(Canvas canvas) {
         canvas.drawBitmap(image, x, y, null);
-//        canvas.drawColor(Color.WHITE);
-//        Paint paint = new Paint();
-//        paint.setColor(Color.rgb(250, 0, 0));
-//        canvas.drawRect(100, 100, 200, 200, paint);
-
     }
 
     //Updates the position of the image on screen
     public void update(int input) {
 //        x = (int)inputX;
 //        y = (int)inputY;
-        if(input == 0) {
-
-        }else if(input == 1 ) {
-
-                y += yVelocity;
-
-        }
+//        if(input == 0) {
+//
+//        }else if(input == 1 ) {
+//
+//                y += yVelocity;
+//
+//        }
 //        else if(input == 2) {
 //            //if ((y > screenWidth - image.getHeight()) || (y < 0)) {&& (y > screenWidth - image.getHeight())
 //                y -= yVelocity;

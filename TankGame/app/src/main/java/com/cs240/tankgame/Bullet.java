@@ -19,7 +19,7 @@ public class Bullet extends Enemy{
         this.health = 1;
         isBullet = true;
         tookTurn = true;
-        //icon = 'b';
+        this.icon = 'b';
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
     }
 
@@ -43,12 +43,12 @@ public class Bullet extends Enemy{
             }
         }
         if(moveFacing == 1){
-            if(row < map.rows-1 ){
+            if(row < map.columns-1 ){
                 map.getAtLoc(col, row+1).doHit(damage);
             }
         }
         if(moveFacing == 2){
-            if(col < map.columns-1){
+            if(col < map.rows-1){
                 map.getAtLoc(col+1, row).doHit(damage);
             }
         }

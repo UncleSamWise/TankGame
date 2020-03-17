@@ -13,7 +13,7 @@ public class Enemy{
     boolean tookTurn;
     boolean isBullet;
     Bitmap image;
-    //char icon; //For printing to console during testing; swap this out with whatever we use to render (sprites?)
+    char icon; //For printing to console during testing; swap this out with whatever we use to render (sprites?)
 
     //screen display width and height
 //    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
@@ -42,7 +42,7 @@ public class Enemy{
 //        return drawEnemy();
 //    }
 
-//    public String toString() {
-//        return icon + "";
-//    }
+    public String toString() {
+        return icon + "";
+    }
 }
