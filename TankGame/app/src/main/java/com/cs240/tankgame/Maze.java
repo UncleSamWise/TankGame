@@ -45,13 +45,13 @@ public class Maze {
                 if(tileType[tileY][tileX] != null){
 
                     if(xCoord + drawRect.width() >= 0 && yCoord + drawRect.height() >= 0){
-                        drawRect.offsetTo(xCoord +17, yCoord);
+                        drawRect.offsetTo(xCoord +17, yCoord + 11);
                         canvas.drawBitmap(bitmaps[0], null, drawRect, null);
                         canvas.drawBitmap(tileType[tileY][tileX].image, null, drawRect, null);
                     }
                 } else{
                     if(xCoord + drawRect.width() >= 0 && yCoord + drawRect.height() >= 0){
-                        drawRect.offsetTo(xCoord +17, yCoord);
+                        drawRect.offsetTo(xCoord +17, yCoord + 11);
                         canvas.drawBitmap(bitmaps[0], null, drawRect, null);
                     }
                 }

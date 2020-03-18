@@ -18,20 +18,15 @@ public class SpinningTurret extends Enemy {
         this.moveFacing = facing;
         this.fireFacing = facing;
         this.health = 1;
-        this.icon = 's';
         tookTurn = true;
         isBullet = false;
+        isPlayer = false;
 
         matrix.postRotate(90);
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
         for(int i = 0; i < facing; i++) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
         }
-    }
-
-    public Bitmap drawEnemy(Canvas canvas){
-        return image;
-        //canvas.drawBitmap(image, screenWidth/row, screenHeight/col, null);
     }
 
     //Shoot 1 turn, rotate the next, ad infinitium

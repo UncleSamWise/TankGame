@@ -2,44 +2,43 @@ package com.cs240.tankgame;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import java.util.Random;
 
-public class PlayerSprite extends Enemy{
+public class RandomTank extends Enemy {
 
+    private Random randomNum = new Random();
+    Matrix matrix = new Matrix();
     int currentRotation;
 
-    Matrix matrix = new Matrix();
-
-    public PlayerSprite(TankMap map, int col, int row, int facing, Bitmap bmp, int width, int height) {
+    //Constructor
+    public RandomTank(TankMap map, int col, int row, int facing, Bitmap bmp, int width, int height) {
         this.map = map;
         this.col = col;
         this.row = row;
         this.moveFacing = facing;
         this.fireFacing = facing;
         this.health = 5;
+        currentRotation = facing;
         tookTurn = true;
         isBullet = false;
-        isPlayer = true;
-        currentRotation = 0;
+
         matrix.postRotate(90);
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
-        for(int i = 0; i < fireFacing; i++) {
+        for(int i = 0; i < facing; i++) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
         }
     }
 
-    public void doPlayerTurn(int dir){
-        if(dir == 0){
-            doPlayerShoot(dir - 1);
-        } else doPlayerMove(dir - 1);
+    public void doTurn(){
+        if(randomNum.nextBoolean()) doMove();
+        else doShoot();
         tookTurn = true;
     }
 
-    //Next two methods should be called externally
-    public void doPlayerMove(int dir){
-
-        moveFacing = dir;
+    public void doMove(){
+        moveFacing = randomNum.nextInt(4);
         if(!map.move(this)){
-            moveFacing = dir;
+            moveFacing = randomNum.nextInt(4);
             map.move(this);
         }
         while(currentRotation != moveFacing) {
@@ -49,29 +48,16 @@ public class PlayerSprite extends Enemy{
         }
     }
 
-    public void doPlayerShoot(int dir){
-
-        //fireFacing = dir;
+    public void doShoot() {
+        fireFacing = randomNum.nextInt(4);
         if(!map.shoot(this, 1, 1)){
-            fireFacing = dir;
+            fireFacing = randomNum.nextInt(4);
             map.shoot(this, 1, 1);
-        }        //currentRotation = 0;
+        }
         while(currentRotation != fireFacing) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             if (currentRotation != 3) currentRotation++;
             else currentRotation = 0;
         }
     }
-
-    public void doHit(int damage){
-        health -= damage;
-        if(health <= 0) doDie();
-    }
-
-    public void doDie(){
-        map.setAtLoc(null, col, row);
-        //Handle losing the game
-    }
-
-
 }

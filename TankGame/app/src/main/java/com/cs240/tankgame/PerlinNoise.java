@@ -98,7 +98,28 @@ public class PerlinNoise {
             System.out.println();
         }
     }
-
+//    public float[][] returnFinalNoise() {
+//        boolean isContinue = true;
+//        while(isContinue){
+//            initialise();
+//            boolean isBadWall = false;
+//            for(int i = 0; i < grid.length; i++) {
+//                for(int j = 0; j < grid[0].length; j++) {
+//                    if((i >= (grid.length / 2) - 1 && i <= (grid.length / 2) + 1) /*|| (j >= (grid.length / 2) - 1 && j <= (grid.length / 2) + 1)*/)  {
+//                        isBadWall = true;
+//                        break;
+//                    }
+//                }
+//                if(isBadWall) {
+//                    break;
+//                }
+//            }
+//            if(!isBadWall){
+//                isContinue = false;
+//            }
+//        }
+//        return grid;
+//    }
     //convert float grid to new int[][] array
     //0 = floor, 1 = wall, 2 = wall variant
     public float[][] returnGrid(){
@@ -132,25 +153,6 @@ public class PerlinNoise {
 
     }
 
-    public float[][] returnFinalNoise(){
-        //PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
-        boolean isBadWall;
-//        while(isBadWall) {
-//            initialise();
-//            //grid
-//            for(grid column){
-//                for(grid row){
-//                    if(grid[i][j] >= 0.5) {
-//                        break;
-//                    }else{
-//                        isBadWall = false;
-//                    }
-//                }
-//            }
-//        }
-
-        return grid;
-    }
 
     /**
      * Convert to a Boolean array

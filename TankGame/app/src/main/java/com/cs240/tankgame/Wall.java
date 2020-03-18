@@ -9,10 +9,7 @@ public class Wall extends Enemy {
         this.map = map;
         this.col = col;
         this.row = row;
-//        this.moveFacing = facing;
-//        this.fireFacing = facing;
         this.health = 99999;
-        this.icon = '1';
         this.image = bmp;
         tookTurn = true;
         isBullet = false;

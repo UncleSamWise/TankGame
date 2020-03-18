@@ -12,15 +12,15 @@ public class Enemy{
     int fireFacing;
     boolean tookTurn;
     boolean isBullet;
+    boolean isPlayer;
     Bitmap image;
-    char icon; //For printing to console during testing; swap this out with whatever we use to render (sprites?)
-
-    //screen display width and height
-//    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-//    int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     //Should run every tick
     public void doTurn(){}
+
+    public void doPlayerTurn(int dir){}
+    public void doPlayerMove(int dir){}
+    public void doPlayerShoot(int dir){}
 
     //Generally, only one of these two functions should run on each turn
     void doMove(){}
@@ -37,12 +37,4 @@ public class Enemy{
         map.setAtLoc(null, col, row);
     }
 
-    //draws to screen
-//    public Bitmap drawEnemy(){
-//        return drawEnemy();
-//    }
-
-    public String toString() {
-        return icon + "";
-    }
 }

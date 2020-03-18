@@ -1,22 +1,13 @@
 package com.cs240.tankgame;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-
-import static com.cs240.tankgame.GameView.canvas;
 
 public class TankMap {
     int columns;
     int rows;
-    private int[][] maze;
     Enemy[][] grid;
 
     Bitmap bulletbmp;
-
-    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
 
     private int cellWidth;
     private int cellHeight;
@@ -27,7 +18,6 @@ public class TankMap {
         rows = maze.length;
         grid = maze;
         bulletbmp = bmp[4];
-        //this.maze = maze;
         PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
         n.initialise();
         float[][] generatedGrid = n.returnGrid();
@@ -37,7 +27,7 @@ public class TankMap {
 
         for(int i = 0; i < generatedGrid.length; i++){
             for(int j = 0; j < generatedGrid[0].length; j++){
-                {if(generatedGrid[i][j] >= 0.5)
+                if(generatedGrid[i][j] >= 0.5){
                     this.addEnemy(new Wall(this, i, j, bmp[1]));
                 }
             }
@@ -57,7 +47,7 @@ public class TankMap {
         grid[col][row] = enemy;
     }
 
-    public void doTurns(){
+    public void doTurns(int dir){
         for(Enemy[] column : grid){
             for(Enemy current : column){
                 if(current != null){
@@ -67,9 +57,15 @@ public class TankMap {
         }
         for(Enemy[] column : grid){
             for(Enemy current : column){
+                if(current != null && !current.tookTurn && current.isPlayer){
+                    current.doPlayerTurn(dir);
+                }
+            }
+        }
+        for(Enemy[] column : grid){
+            for(Enemy current : column){
                 if(current != null && !current.tookTurn && current.isBullet){
                     current.doTurn();
-                    //current.drawEnemy();
                 }
             }
         }
@@ -146,22 +142,4 @@ public class TankMap {
         return true;
     }
 
-    public void render(){
-//        System.out.println("____________________________");
-        //Enemy[][] temp = new Enemy[grid.length][grid[0].length];
-//        for(int i = 0; i < maze.length; i++){
-//            for(int j = 0; j < maze[0].length; j++){
-//                if(maze[i][j] == 0){
-//                    this.addEnemy(new Wall(this, i, j, bmp[1]));
-//                }
-//            }
-//        }
-//        for(int i = 0; i < grid.length; i++){
-//            for(int ii = 0; ii < grid[0].length; ii++){
-//                if(grid[i][ii] != null && grid[i][ii].image != null){
-//                    canvas.drawBitmap(grid[i][ii].image, screenHeight, screenWidth, null);
-//                }
-//            }
-//        }
-    }
 }
