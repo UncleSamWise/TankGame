@@ -15,7 +15,6 @@ public class MainThread extends Thread {
     private int targetFPS = 1;
     private double averageFPS;
 
-
     public MainThread(SurfaceHolder surfaceHolder, GameView gameView) {
 
         super();
@@ -34,7 +33,6 @@ public class MainThread extends Thread {
         int frameCount =0;
         long targetTime = 1000/targetFPS;
 
-
         while(running) {
             startTime = System.nanoTime();
             canvas = null;
@@ -45,7 +43,9 @@ public class MainThread extends Thread {
                     this.gameView.update();
                     this.gameView.draw(canvas);
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             finally{
                 if(canvas!=null) {

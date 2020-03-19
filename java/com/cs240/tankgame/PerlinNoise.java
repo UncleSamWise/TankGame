@@ -1,5 +1,7 @@
 package com.cs240.tankgame;
 
+import android.graphics.Bitmap;
+
 import java.util.Random;
 
 public class PerlinNoise {
@@ -14,7 +16,7 @@ public class PerlinNoise {
 
 
     /** Generate a noise source based upon the midpoint displacement fractal.
-     * 
+     *
      * @param rand The random number generator
      * @param roughness a roughness parameter
      * @param width the width of the grid
@@ -96,36 +98,59 @@ public class PerlinNoise {
             System.out.println();
         }
     }
-
+//    public float[][] returnFinalNoise() {
+//        boolean isContinue = true;
+//        while(isContinue){
+//            initialise();
+//            boolean isBadWall = false;
+//            for(int i = 0; i < grid.length; i++) {
+//                for(int j = 0; j < grid[0].length; j++) {
+//                    if((i >= (grid.length / 2) - 1 && i <= (grid.length / 2) + 1) /*|| (j >= (grid.length / 2) - 1 && j <= (grid.length / 2) + 1)*/)  {
+//                        isBadWall = true;
+//                        break;
+//                    }
+//                }
+//                if(isBadWall) {
+//                    break;
+//                }
+//            }
+//            if(!isBadWall){
+//                isContinue = false;
+//            }
+//        }
+//        return grid;
+//    }
     //convert float grid to new int[][] array
     //0 = floor, 1 = wall, 2 = wall variant
-    public int[][] returnGrid(){
-        int w = grid.length;
+    public float[][] returnGrid(){
+        return grid;
+        /*int w = grid.length;
         int h = grid[0].length;
-        int[][] newGrid = new int[w][h];
+        Enemy[][] newGrid = new Enemy[w][h];
 
         for(int i = 0;i < grid.length;i++) {
             for(int j = 0;j < grid[0].length;j++) {
 
                 /*if((i >= (grid.length / 2) - 1 && i <= (grid.length / 2) + 1) || (j >= (grid.length / 2) - 1 && j <= (grid.length / 2) + 1)) {
                   System.out.print("UU");
-                }else */
+                }else
 //                if(grid[i][j] > 0.2 && grid[i][j] < 0.5) {
 //                    System.out.print("++");
 //                }else
                 if(grid[i][j] >= 0.5){
-                    newGrid[i][j] = 1;
-                } else /*if(grid[i][j] <= 0.2 && grid[i][j] > -1.3)*/{
-                    newGrid[i][j] = 0;
+                    theMap.addEnemy(new Wall(theMap, i, j, bmp[1]));
+                } else /*if(grid[i][j] <= 0.2 && grid[i][j] > -1.3){
+                    //newGrid[i][j] = 0;
                 }
 //                else{
 //                    System.out.print("WW");
 //                }
             }
-            System.out.println();
         }
 
-        return newGrid;
+        return newGrid:
+         */
+
     }
 
 
