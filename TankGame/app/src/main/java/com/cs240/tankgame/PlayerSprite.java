@@ -5,7 +5,9 @@ import android.graphics.Matrix;
 
 public class PlayerSprite extends Enemy{
 
-    int currentRotation;
+    private int currentRotation;
+
+    private boolean isFirstTurn;
 
     private Matrix matrix = new Matrix();
 
@@ -15,10 +17,11 @@ public class PlayerSprite extends Enemy{
         this.row = row;
         this.moveFacing = facing;
         this.fireFacing = facing;
-        this.health = 5;
+        this.health = 1;
         tookTurn = true;
         isBullet = false;
         isPlayer = true;
+        isFirstTurn = true;
         currentRotation = 0;
         matrix.postRotate(90);
         this.image = bmp.createScaledBitmap(bmp, width, height, true);
@@ -29,20 +32,18 @@ public class PlayerSprite extends Enemy{
 
     public void doPlayerTurn(int dir){
         if(dir == 0){
-            //fireFacing = dir;
-            doPlayerShoot(dir - 1);
-        } else doPlayerMove(dir - 1);
+            doShoot();
+        } else {
+            moveFacing = dir - 1;
+            doMove();
+        }
         tookTurn = true;
     }
 
     //Next two methods should be called externally
-    public void doPlayerMove(int dir){
+    public void doMove(){
 
-        moveFacing = dir;
-        if(!map.move(this)){
-            moveFacing = dir;
-            map.move(this);
-        }
+        map.move(this);
         while(currentRotation != moveFacing) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             if (currentRotation != 3) currentRotation++;
@@ -50,29 +51,18 @@ public class PlayerSprite extends Enemy{
         }
     }
 
-    public void doPlayerShoot(int dir){
-
-        //fireFacing = dir;
-        if(!map.playerShoot(this, 1, 1, dir)){
-            //fireFacing = dir;
-            map.playerShoot(this, 1, 1, dir);
-        }        //currentRotation = 0;
-        while(currentRotation != dir) {
-            image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
-            if (currentRotation != 3) currentRotation++;
-            else currentRotation = 0;
+    public void doShoot(){
+        fireFacing = moveFacing;
+        if(isFirstTurn){
+            fireFacing = Math.abs(fireFacing - 2);
+            isFirstTurn = false;
         }
+        map.shoot(this, 1, 1);
+//        while(currentRotation != fireFacing) {
+//            image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
+//            if (currentRotation != 3) currentRotation++;
+//            else currentRotation = 0;
+//        }
     }
-
-//    public void doHit(int damage){
-//        health -= damage;
-//        if(health <= 0) doDie();
-//    }
-
-//    public void doDie(){
-//        map.setAtLoc(null, col, row);
-//        //Handle losing the game
-//    }
-//
 
 }

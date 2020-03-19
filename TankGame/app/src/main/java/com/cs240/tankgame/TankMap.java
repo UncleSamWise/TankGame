@@ -24,10 +24,9 @@ public class TankMap {
         cellWidth = width;
         cellHeight = height;
         //populate the grid with walls
-
         for(int i = 0; i < generatedGrid.length; i++){
             for(int j = 0; j < generatedGrid[0].length; j++){
-                if(generatedGrid[i][j] >= 0.5){
+                if(generatedGrid[i][j] >= 0.0){
                     this.addEnemy(new Wall(this, i, j, bmp));
                 }
             }
@@ -55,17 +54,18 @@ public class TankMap {
                 }
             }
         }
+
         for(Enemy[] column : grid){
             for(Enemy current : column){
-                if(current != null && !current.tookTurn && current.isPlayer){
-                    current.doPlayerTurn(dir);
+                if(current != null && !current.tookTurn && current.isBullet){
+                    current.doTurn();
                 }
             }
         }
         for(Enemy[] column : grid){
             for(Enemy current : column){
-                if(current != null && !current.tookTurn && current.isBullet){
-                    current.doTurn();
+                if(current != null && !current.tookTurn && current.isPlayer){
+                    current.doPlayerTurn(dir);
                 }
             }
         }
@@ -84,28 +84,28 @@ public class TankMap {
         int row = enemy.row;
         int col = enemy.col;
         if(facing == 0){
-            if(col > 0 && grid[col-1][row] == null){
+            if(col > 0 && (grid[col-1][row] == null || grid[col-1][row].isBullet)){
                 grid[col-1][row] = enemy;
                 grid[col][row] = null;
                 enemy.col = enemy.col-1;
             } else return false;
         }
         if(facing == 1){
-            if(row < columns-1 && grid[col][row+1] == null){
+            if(row < columns-1 && (grid[col][row+1] == null || grid[col][row+1].isBullet)){
                 grid[col][row+1] = enemy;
                 grid[col][row] = null;
                 enemy.row = enemy.row+1;
             } else return false;
         }
         if(facing == 2){
-            if(col < rows - 1 && grid[col+1][row] == null){
+            if(col < rows - 1 && (grid[col+1][row] == null || grid[col+1][row].isBullet)){
                 grid[col+1][row] = enemy;
                 grid[col][row] = null;
                 enemy.col = enemy.col+1;
             } else return false;
         }
         if(facing == 3){
-            if(row > 0 && grid[col][row-1] == null){
+            if(row > 0 && (grid[col][row-1] == null || grid[col][row-1].isBullet)){
                 grid[col][row-1] = enemy;
                 grid[col][row] = null;
                 enemy.row = enemy.row-1;
@@ -117,33 +117,6 @@ public class TankMap {
     //Spawn bullet 1 tile in front, returns true if valid, otherwise false
     public boolean shoot(Enemy enemy, int damage, int speed){
         int facing = enemy.fireFacing;
-        int row = enemy.row;
-        int col = enemy.col;
-        if(facing == 0){
-            if(col > 0 /*&& grid[col-1][row] == null*/){
-                addEnemy(new Bullet(this, col-1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
-            } else return false;
-        }
-        if(facing == 1){
-            if(row < rows-1 /*&& grid[col][row+1] == null*/){
-                addEnemy(new Bullet(this, col, row+1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
-            } else return false;
-        }
-        if(facing == 2){
-            if(col < columns-1 /*&& grid[col+1][row] == null*/){
-                addEnemy(new Bullet(this, col+1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
-            } else return false;
-        }
-        if(facing == 3){
-            if(row > 0 /*&& grid[col][row-1] == null*/){
-                addEnemy(new Bullet(this, col, row-1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
-            } else return false;
-        }
-        return true;
-    }
-
-    public boolean playerShoot(Enemy enemy, int damage, int speed, int dir){
-        int facing = dir;
         int row = enemy.row;
         int col = enemy.col;
         if(facing == 0){

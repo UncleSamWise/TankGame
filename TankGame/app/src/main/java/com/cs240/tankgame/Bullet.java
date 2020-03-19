@@ -8,7 +8,7 @@ public class Bullet extends Enemy{
 
     private int speed; // Tiles per tick
     private int damage; // Healthpoints damage
-    Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
     public Bullet(TankMap map, int col, int row, int facing, int damage, int speed, Bitmap bmp, int width, int height){
         this.map = map;

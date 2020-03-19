@@ -88,7 +88,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         theMap.addEnemy(new SpinningTurret(theMap, 2, 7, 3, bitmaps[5], cellWidth, cellHeight));
         theMap.addEnemy(new RandomTank(theMap, 5, 5, 2, bitmaps[3], cellWidth, cellHeight));
 
-        //theMap.addEnemy(new PlayerSprite(theMap, 7, 7, 2, bitmaps[2], cellWidth, cellHeight));
+        theMap.addEnemy(new PlayerSprite(theMap, 7, 7, 2, bitmaps[2], cellWidth, cellHeight));
 
         //theMap.populate();
         maze = theMap.grid;
@@ -134,5 +134,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-
+    public boolean getTurnDone(){return turnDone;}
 }
