@@ -7,7 +7,7 @@ public class PlayerSprite extends Enemy{
 
     int currentRotation;
 
-    Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
     public PlayerSprite(TankMap map, int col, int row, int facing, Bitmap bmp, int width, int height) {
         this.map = map;
@@ -29,6 +29,7 @@ public class PlayerSprite extends Enemy{
 
     public void doPlayerTurn(int dir){
         if(dir == 0){
+            //fireFacing = dir;
             doPlayerShoot(dir - 1);
         } else doPlayerMove(dir - 1);
         tookTurn = true;
@@ -52,26 +53,26 @@ public class PlayerSprite extends Enemy{
     public void doPlayerShoot(int dir){
 
         //fireFacing = dir;
-        if(!map.shoot(this, 1, 1)){
-            fireFacing = dir;
-            map.shoot(this, 1, 1);
+        if(!map.playerShoot(this, 1, 1, dir)){
+            //fireFacing = dir;
+            map.playerShoot(this, 1, 1, dir);
         }        //currentRotation = 0;
-        while(currentRotation != fireFacing) {
+        while(currentRotation != dir) {
             image = Bitmap.createBitmap(image, 0, 0, image.getWidth(), image.getHeight(), matrix, true);
             if (currentRotation != 3) currentRotation++;
             else currentRotation = 0;
         }
     }
 
-    public void doHit(int damage){
-        health -= damage;
-        if(health <= 0) doDie();
-    }
+//    public void doHit(int damage){
+//        health -= damage;
+//        if(health <= 0) doDie();
+//    }
 
-    public void doDie(){
-        map.setAtLoc(null, col, row);
-        //Handle losing the game
-    }
-
+//    public void doDie(){
+//        map.setAtLoc(null, col, row);
+//        //Handle losing the game
+//    }
+//
 
 }

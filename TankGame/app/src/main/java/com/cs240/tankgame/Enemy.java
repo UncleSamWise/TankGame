@@ -17,14 +17,13 @@ public class Enemy{
 
     //Should run every tick
     public void doTurn(){}
-
     public void doPlayerTurn(int dir){}
-    public void doPlayerMove(int dir){}
-    public void doPlayerShoot(int dir){}
 
     //Generally, only one of these two functions should run on each turn
     void doMove(){}
     void doShoot(){}
+    public void doPlayerMove(int dir){}
+    public void doPlayerShoot(int dir){}
 
     //Run when getting hit
     public void doHit(int damage){

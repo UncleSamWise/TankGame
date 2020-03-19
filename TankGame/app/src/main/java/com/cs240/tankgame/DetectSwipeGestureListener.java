@@ -13,7 +13,7 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
 
     // Minimal x and y axis swipe distance.
     private static final int MIN_SWIPE_DISTANCE_X = 500;
-    private static final int MIN_SWIPE_DISTANCE_Y = 10;
+    private static final int MIN_SWIPE_DISTANCE_Y = 500;
 
     // Maximal x and y axis swipe distance.
     private static final int MAX_SWIPE_DISTANCE_X = 1000;
@@ -23,19 +23,21 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-        // Get swipe delta value in x axis.
+        // Get first point of contact for swipe
         float x1 = e1.getX();
-        // Get swipe delta value in y axis.
         float y1 = e1.getY();
-        for(int i = -1000000000; i <= 0; i++){
 
-        }
+        //wait a bit
+        for(int i = -1000000000; i <= 0; i++);
+
+        // Get final point of contact for swipe
         float x2 = e2.getX();
         float y2 = e2.getY();
 
+        //find the length and direction of swipe
         float deltaX = x1 - x2;
-        // Get swipe delta value in y axis.
         float deltaY = y1 - y2;
+
         // Get absolute value.
         float deltaXAbs = Math.abs(deltaX);
         float deltaYAbs = Math.abs(deltaY);
@@ -44,23 +46,16 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
         if((deltaXAbs >= MIN_SWIPE_DISTANCE_X) && (deltaXAbs <= MAX_SWIPE_DISTANCE_X)) {
             if(deltaX > 0) {//left
                 direction = 4;
-            }else //right
-            {
+            }else{//right
                 direction = 2;
             }
         }else if((deltaYAbs >= MIN_SWIPE_DISTANCE_Y) && (deltaYAbs <= MAX_SWIPE_DISTANCE_Y)) {
-            if(deltaY > 0)
-            {
-                //up
+            if(deltaY > 0){//up
                 direction = 1;
-            }else
-            {
-                //down
+            }else{//down
                 direction = 3;
             }
         }
-
-
         return true;
     }
 
@@ -72,11 +67,11 @@ public class DetectSwipeGestureListener extends GestureDetector.SimpleOnGestureL
     }
 
     // Invoked when double tap screen.
-    @Override
-    public boolean onDoubleTap(MotionEvent e) {
-        //this.activity.displayMessage("Double tap occurred.");
-        return true;
-    }
+//    @Override
+//    public boolean onDoubleTap(MotionEvent e) {
+//        //this.activity.displayMessage("Double tap occurred.");
+//        return true;
+//    }
 
     public int getDirection() {
         return direction;

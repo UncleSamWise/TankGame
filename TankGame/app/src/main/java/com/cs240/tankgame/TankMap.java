@@ -17,7 +17,7 @@ public class TankMap {
         columns = maze[0].length;
         rows = maze.length;
         grid = maze;
-        bulletbmp = bmp[4];
+        bulletbmp = bmp[6];
         PerlinNoise n = new PerlinNoise(null, 1.0f, rows, columns);
         n.initialise();
         float[][] generatedGrid = n.returnGrid();
@@ -28,7 +28,7 @@ public class TankMap {
         for(int i = 0; i < generatedGrid.length; i++){
             for(int j = 0; j < generatedGrid[0].length; j++){
                 if(generatedGrid[i][j] >= 0.5){
-                    this.addEnemy(new Wall(this, i, j, bmp[1]));
+                    this.addEnemy(new Wall(this, i, j, bmp));
                 }
             }
         }
@@ -71,7 +71,7 @@ public class TankMap {
         }
         for(Enemy[] column : grid){
             for(Enemy current : column){
-                if(current != null && !current.tookTurn){
+                if(current != null && !current.tookTurn && !current.isPlayer){
                     current.doTurn();
                 }
             }
@@ -120,22 +120,49 @@ public class TankMap {
         int row = enemy.row;
         int col = enemy.col;
         if(facing == 0){
-            if(col > 0 && grid[col-1][row] == null){
+            if(col > 0 /*&& grid[col-1][row] == null*/){
                 addEnemy(new Bullet(this, col-1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
             } else return false;
         }
         if(facing == 1){
-            if(row < rows-1 && grid[col][row+1] == null){
+            if(row < rows-1 /*&& grid[col][row+1] == null*/){
                 addEnemy(new Bullet(this, col, row+1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
             } else return false;
         }
         if(facing == 2){
-            if(col < columns-1 && grid[col+1][row] == null){
+            if(col < columns-1 /*&& grid[col+1][row] == null*/){
                 addEnemy(new Bullet(this, col+1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
             } else return false;
         }
         if(facing == 3){
-            if(row > 0 && grid[col][row-1] == null){
+            if(row > 0 /*&& grid[col][row-1] == null*/){
+                addEnemy(new Bullet(this, col, row-1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
+            } else return false;
+        }
+        return true;
+    }
+
+    public boolean playerShoot(Enemy enemy, int damage, int speed, int dir){
+        int facing = dir;
+        int row = enemy.row;
+        int col = enemy.col;
+        if(facing == 0){
+            if(col > 0 /*&& grid[col-1][row] == null*/){
+                addEnemy(new Bullet(this, col-1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
+            } else return false;
+        }
+        if(facing == 1){
+            if(row < rows-1 /*&& grid[col][row+1] == null*/){
+                addEnemy(new Bullet(this, col, row+1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
+            } else return false;
+        }
+        if(facing == 2){
+            if(col < columns-1 /*&& grid[col+1][row] == null*/){
+                addEnemy(new Bullet(this, col+1, row, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
+            } else return false;
+        }
+        if(facing == 3){
+            if(row > 0 /*&& grid[col][row-1] == null*/){
                 addEnemy(new Bullet(this, col, row-1, facing, damage, speed, bulletbmp, cellWidth, cellHeight));
             } else return false;
         }

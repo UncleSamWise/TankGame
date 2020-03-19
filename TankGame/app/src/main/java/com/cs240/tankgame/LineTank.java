@@ -8,7 +8,7 @@ public class LineTank extends Enemy {
 
     private boolean fireTicker = true;
 
-    Matrix matrix = new Matrix();
+    private Matrix matrix = new Matrix();
 
     //Constructor
     //Moves in direction of initial moveFacing, and fires to its right

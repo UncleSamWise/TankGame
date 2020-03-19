@@ -63,12 +63,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     //bitmap directory
     Bitmap[] bitmaps = {
-            BitmapFactory.decodeResource(getResources(), R.drawable.grass1),
-            BitmapFactory.decodeResource(getResources(), R.drawable.best),
+            BitmapFactory.decodeResource(getResources(), R.drawable.floor),
+            BitmapFactory.decodeResource(getResources(), R.drawable.wall),
             BitmapFactory.decodeResource(getResources(), R.drawable.playertank),
             BitmapFactory.decodeResource(getResources(), R.drawable.enemytank),
+            BitmapFactory.decodeResource(getResources(), R.drawable.linetank),
+            BitmapFactory.decodeResource(getResources(), R.drawable.turret),
             BitmapFactory.decodeResource(getResources(), R.drawable.bullet),
-            BitmapFactory.decodeResource(getResources(), R.drawable.metal)
+            BitmapFactory.decodeResource(getResources(), R.drawable.wall2),
     };
 
     //calls images and starts the main thread
@@ -82,9 +84,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         int cellWidth = (int)mazeFinal.getCellWidth();
 
         theMap = new TankMap(maze, cellWidth, cellHeight, bitmaps);
-        theMap.addEnemy(new LineTank(theMap, 2, 5, 3, bitmaps[3], cellWidth, cellHeight));
-        theMap.addEnemy(new SpinningTurret(theMap, 2, 7, 3, bitmaps[3], cellWidth, cellHeight));
-        theMap.addEnemy(new PlayerSprite(theMap, 5, 5, 2, bitmaps[2], cellWidth, cellHeight));
+        theMap.addEnemy(new LineTank(theMap, 2, 5, 3, bitmaps[4], cellWidth, cellHeight));
+        theMap.addEnemy(new SpinningTurret(theMap, 2, 7, 3, bitmaps[5], cellWidth, cellHeight));
+        theMap.addEnemy(new RandomTank(theMap, 5, 5, 2, bitmaps[3], cellWidth, cellHeight));
+
+        //theMap.addEnemy(new PlayerSprite(theMap, 7, 7, 2, bitmaps[2], cellWidth, cellHeight));
 
         //theMap.populate();
         maze = theMap.grid;
@@ -117,9 +121,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             theMap.doTurns(direction);
         }
         direction = -1;
-        for(int i = -1000000000; i <= 0; i++){
-
-        }
+        for(int i = -1000000000; i <= 0; i++);
         turnDone = true;
     }
 
@@ -127,7 +129,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void draw(Canvas canvas) {
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
+            //canvas.drawColor(Color.WHITE);
             mazeFinal.drawMaze(canvas, mazeWidth, mazeHeight);
         }
     }

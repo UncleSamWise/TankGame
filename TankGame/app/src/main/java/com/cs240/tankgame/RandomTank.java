@@ -7,8 +7,8 @@ import java.util.Random;
 public class RandomTank extends Enemy {
 
     private Random randomNum = new Random();
-    Matrix matrix = new Matrix();
-    int currentRotation;
+    private Matrix matrix = new Matrix();
+    private int currentRotation;
 
     //Constructor
     public RandomTank(TankMap map, int col, int row, int facing, Bitmap bmp, int width, int height) {
